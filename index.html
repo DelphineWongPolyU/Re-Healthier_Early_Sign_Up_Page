@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Re-Healthier - AI-powered Rehab App</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -20,24 +21,48 @@
         }
         .container {
             display: flex;
-            width: 80%;
+            width: 90%; /* Slightly wider on mobile */
             max-width: 1200px;
+            flex-direction: row;
+            margin: 20px auto;
             background-color: #1e1e1e;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-        .left {
-            flex: 1;
-            padding: 20px;
-        }
-        .right {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        @media screen and (max-width: 430px) {
+            body {
+                height: auto;
+                padding: 40px 0; /* Increased top padding to accommodate language selector */
+            }
+
+            .language-selector {
+                top: 10px;
+                right: 10px;
+                position: fixed;
+                background-color: rgba(30, 30, 30, 0.9);
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 95%;
+                margin: 10px auto;
+                height: auto;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+
+            .left {
+                padding: 15px;
+                order: 2; /* Changes the order of sections on mobile */
+            }
+
+            .right {
+                padding: 15px;
+                order: 1; /* Changes the order of sections on mobile */
+            }
         }
         h1 {
             font-size: 24px;
@@ -149,9 +174,116 @@
             background-color: #333;
             color: white;
         }
+            /* Add these media queries for mobile responsiveness */
+    @media screen and (max-width: 430px) {
+        .container {
+            flex-direction: column;
+            width: 95%;
+            margin: 10px auto;
+            height: auto;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        body {
+            height: auto;
+            padding: 20px 0;
+        }
+
+        .left, .right {
+            padding: 15px;
+            width: auto;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .language-selector button {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin: 8px 0;
+        }
+
+        input[type="text"], 
+        input[type="email"],
+        select {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+        }
+
+        .modal-content {
+            width: 90%;
+            margin: 2% auto;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal {
+            padding-top: 20px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+        }
+    }
+
+    /* Additional optimization for very narrow screens */
+    @media screen and (max-width: 340px) {
+        .container {
+            width: 98%;
+            margin: 5px auto;
+        }
+
+        h1 {
+            font-size: 18px;
+        }
+
+        .language-selector button {
+            font-size: 12px;
+            padding: 3px;
+        }
+
+        .left, .right {
+            padding: 10px;
+        }
+    }
     </style>
 </head>
 <body>
+    <!-- <div class="language-selector">
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('zh')">繁體中文</button>
+    </div> -->
     <div class="container">
         <div class="left">
             <h1>What Re-Healthier Offer?</h1>
