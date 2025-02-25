@@ -19,6 +19,21 @@
             justify-content: center;
             height: 100vh;
         }
+        #logo {
+            position: absolute;
+            left: 20px;
+            width: 150px;
+            z-index: 100;
+        }
+        header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background-color: #121212;
+            padding: 20px;
+            margin-bottom: 20px; /* Add space below header */
+            height: 80px; /* Fixed height for header */
+        }
         .container {
             display: flex;
             width: 90%; /* Slightly wider on mobile */
@@ -29,11 +44,35 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 20px; /* Add padding inside the container */
+
         }
-        @media screen and (max-width: 430px) {
+
+        .responsive-video {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .responsive-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media screen and (max-width: 440px) {
             body {
                 height: auto;
                 padding: 40px 0; /* Increased top padding to accommodate language selector */
+            }
+            header {
+                height: 60px;
+                padding: 10px;
+                margin-bottom: 10px;
             }
 
             .language-selector {
@@ -56,12 +95,12 @@
 
             .left {
                 padding: 15px;
-                order: 2; /* Changes the order of sections on mobile */
+                order: 1; /* Changes the order of sections on mobile */
             }
 
             .right {
                 padding: 15px;
-                order: 1; /* Changes the order of sections on mobile */
+                order: 2; /* Changes the order of sections on mobile */
             }
         }
         h1 {
@@ -185,6 +224,15 @@
             max-height: 90vh;
         }
 
+        header {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        #logo {
+            width: 100px; /* Smaller size for mobile */
+            left: 15px;
+        }
+
         body {
             height: auto;
             padding: 20px 0;
@@ -263,6 +311,10 @@
             width: 98%;
             margin: 5px auto;
         }
+        #logo {
+            width: 80px; /* Even smaller for very small screens */
+            left: 10px;
+        }
 
         h1 {
             font-size: 18px;
@@ -276,14 +328,33 @@
         .left, .right {
             padding: 10px;
         }
+        #logo {
+            width: 120px; 
+            margin-bottom: 5px; 
+        }
     }
-    </style>
+    
+    .signup-count {
+        margin-top: 15px;
+        text-align: center;
+    }
+    
+    .signup-count .number {
+        color: #ff4757;
+        font-weight: bold;
+    }
+    
+    .signup-count .update-date {
+        color: #888;
+        font-size: 12px;
+        font-style: italic;
+    }
+</style>
 </head>
 <body>
-    <!-- <div class="language-selector">
-        <button onclick="changeLanguage('en')">English</button>
-        <button onclick="changeLanguage('zh')">繁體中文</button>
-    </div> -->
+    <header>
+    <img src="rehealthier_logo_nobg.png" alt="Re-Healthier Logo" id="logo">
+    </header>
     <div class="container">
         <div class="left">
             <h1>What Re-Healthier Offer?</h1>
@@ -296,8 +367,20 @@
                 <li>Benefit from personalized exercise plans and difficulty adjustments tailored to your progress.</li>
                 <p><strong>Track Your Journey:</strong></p>
                 <li>Monitor your progress with visual reports that showcase your improvements over time.</li>
-            </ul>
-            <p class="animation">Experience the Future of Rehab with AI.</p>
+
+
+           
+        </ul>             
+        <div class="responsive-video">
+            <iframe 
+            src="https://www.youtube.com/embed/v3TOwVovKNk?rel=0&modestbranding=1&playsinline=1&controls=1" 
+            allowfullscreen 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            frameborder="0">
+        </iframe>
+        </div>
+        <p class="animation">Experience the Future of Rehab with AI.</p>
+
         </div>
         <div class="right">
             <div class="language-selector">
@@ -306,26 +389,32 @@
             </div>
             <h1>Join The Early Access List</h1>
             <p>Be among the first to experience our innovative AI-guided rehab app when it launches.</p>
-            <form id="signup-form">
+            <form id="signup-form" action="https://formspree.io/f/mwpvkjkg" method="POST">
+                <input type="hidden" name="_replyto" value="rehealthiercv@gmail.com">
                 <div class="form-group">
-                    <input type="text" id="name" placeholder="Your name" required>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" placeholder="Your email" required>
+                    <input type="email" id="email" name="email" placeholder="Your email" required>
                 </div>
                 <div class="form-group">
                     <label for="interests">Are you interested in rehabilitation or injury prevention?</label><br>
-                    <select id="interests" required>
+                    <select id="interests" name="interests" required>
                         <option value="" disabled selected>Select an option</option>
                         <option value="rehabilitation">Rehabilitation</option>
                         <option value="injury_prevention">Injury Prevention</option>
                     </select>
                 </div>
                 <div class="form-group disclaimer">
-                    <input type="checkbox" id="disclaimer-checkbox" required>
+                    <input type="checkbox" id="disclaimer-checkbox" name="disclaimer" required>
                     <label for="disclaimer-checkbox">By joining you acknowledge that you have read, understood, and agreed to the terms of this <span class="disclaimer-link" onclick="openModal()">disclaimer</span>.</label>
                 </div>
                 <input type="submit" value="Sign up">
+                <div class="signup-count">
+                    <span id="signup-counter"></span>
+                    <br>
+                    <span id="update-date" class="update-date"></span>
+                </div>
             </form>
         </div>
     </div>
@@ -357,15 +446,48 @@
     </div>
     
     <script>
+        let currentLang = 'en'; // Add this at the start of script
+        const signupCount = 15; 
+        const updateDate = "2024-02-25"; 
+        
+        const _0x3a7b = {
+            _d: btoa(signupCount.toString()),
+            _t: btoa(updateDate)
+        };
+        
+        function updateSignupCounter() {
+            const counterElement = document.getElementById('signup-counter');
+            const dateElement = document.getElementById('update-date');
+
+            // Decode the obfuscated data
+            const count = parseInt(atob(_0x3a7b._d)); 
+            const date = atob(_0x3a7b._t);
+
+
+            if (currentLang === 'en') {
+                counterElement.innerHTML = `<span class="number">${count}</span> people have already signed up!`;
+                dateElement.innerText = `*updated at ${date}*`;
+            } else if (currentLang === 'zh') {
+                counterElement.innerHTML = `<span class="number">${count}</span>人已經註冊！`;
+                dateElement.innerText = `*更新於${date}*`;
+            }
+        }
         document.getElementById('signup-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default temporarily to show alert
             const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            alert(`Thank you for signing up, ${name}!`);
-            document.getElementById('signup-form').reset();
+            
+            if (currentLang === 'en') {
+                alert(`Thank you for signing up, ${name}! We'll let you know when the product is ready to launch.`);
+            } else if (currentLang === 'zh') {
+                alert(`謝謝您報名, ${name}!產品推出時，我們會通知您`);
+            }
+            
+            // Submit the form programmatically after alert
+            event.target.submit();
         });
     
         function changeLanguage(lang) {
+            currentLang = lang; // Update this line to properly set the language
             if (lang === 'en') {
                 document.querySelector('.left h1').innerText = 'What Re-Healthier Offer?';
                 document.querySelector('.right h1').innerText = 'Join The Early Access List';
@@ -401,14 +523,19 @@
                 document.querySelectorAll('.modal-content h3')[2].innerText = 'Early Access Program Terms:';
                 document.querySelectorAll('.modal-content p')[7].innerText = 'This early access program may be terminated at any time without prior notice.';
                 document.querySelectorAll('.modal-content p')[8].innerText = 'We reserve the right to modify or discontinue any aspect of the early access program at any time.';
+         
+                document.querySelector('input[type="submit"]').value = 'Sign up';
+
+         
             } else if (lang === 'zh') {
                 document.querySelector('.left h1').innerText = '探索 Re-Healthier 如何幫助您';
                 document.querySelector('.right h1').innerText = '加入早期體驗計劃名單';
                 document.querySelector('.right p').innerText = '在應用程式推出時搶先體驗我們的AI輔助復健應用程式。';
-                document.querySelector('label[for="interests"]').innerText = '您對於復健或是預防受傷是否有興趣？';
+                document.querySelector('label[for="interests"]').innerText = '您對於復健或是預防受傷有興趣？';
                 document.querySelector('#interests option[value=""]').innerText = '請選擇';
                 document.querySelector('#interests option[value="rehabilitation"]').innerText = '復健';
                 document.querySelector('#interests option[value="injury_prevention"]').innerText = '預防受傷';
+                document.querySelector('input[type="submit"]').value = '註冊';
          
                 document.querySelectorAll('.left ul p')[0].innerText = '隨時、隨地:';
                 document.querySelectorAll('.left ul li')[0].innerText = '只需要手機鏡頭，在家或外出時都能方便地進行運動。';
@@ -420,24 +547,36 @@
                 document.querySelectorAll('.left ul li')[3].innerText = '透過視覺化報告追蹤您的進步。';
                 document.querySelector('.left .animation').innerText = '與 Re-Healthier 一起體驗未來的復健';
                 document.querySelector('.disclaimer label').innerHTML = '加入即表示您已閱讀、理解並同意本<span class="disclaimer-link" onclick="openModal()">免責聲明</span>的條款。';
+                
+                // Disclaimer modal translations
                 document.querySelector('.modal-content h2').innerText = '免責聲明';
-                document.querySelectorAll('.modal-content p')[0].innerText = '本應用程式為實驗性 AI 驅動之復健工具，目前尚處於早期開發階段，可能包含錯誤、技術問題或功能限制。';
+                
+                const modalPs = document.querySelectorAll('.modal-content p');
+                modalPs[0].innerText = '本應用程式為實驗性 AI 驅動之復健工具，目前尚處於早期開發階段，可能包含錯誤、技術問題或功能限制。';
+                
                 document.querySelectorAll('.modal-content h3')[0].innerText = '資料蒐集與使用';
-                document.querySelectorAll('.modal-content p')[1].innerText = '參與本計畫即表示您同意我們蒐集並使用與您使用本應用程式相關之匿名資料，包括運動完成率、回饋意見及表現數據。';
-                document.querySelectorAll('.modal-content p')[2].innerText = '此類資料將用於：';
+                modalPs[1].innerText = '參與本計畫即表示您同意我們蒐集並使用與您使用本應用程式相關之匿名資料，包括運動完成率、回饋意見及表現數據。';
+                modalPs[2].innerText = '此類資料將用於：';
+                
                 document.querySelectorAll('.modal-content ul li')[0].innerText = '改善產品：協助我們識別並修正錯誤、提升應用程式效能及使用者體驗。';
                 document.querySelectorAll('.modal-content ul li')[1].innerText = '研究與開發：進行 AI 驅動復健工具之有效性及使用者體驗之研究。';
                 document.querySelectorAll('.modal-content ul li')[2].innerText = '本應用程式不會在未經您明確同意的情況下，蒐集或儲存任何形式的音訊或視訊資料。';
-                document.querySelectorAll('.modal-content p')[3].innerText = '所有蒐集之資料皆依據相關隱私法規進行處理。';
+                
+                modalPs[3].innerText = '所有蒐集之資料皆依據相關隱私法規進行處理。';
+                
                 document.querySelectorAll('.modal-content h3')[1].innerText = '限制與聲明';
-                document.querySelectorAll('.modal-content p')[4].innerText = '非醫療建議： 本應用程式不作為任何醫療診斷、治療或預防之依據。其無法取代專業醫療人員之診斷、治療或建議。';
-                document.querySelectorAll('.modal-content p')[5].innerText = '本網站/平台/文件所提供之資訊僅供一般參考之用，並不構成專業建議。 Re-Healthier 對於本文件所載資訊之準確性、完整性、適用性或有效性，不作任何明示或默示之保證或陳述。';
-                document.querySelectorAll('.modal-content p')[6].innerText = '諮詢醫療專業人員： 對於任何健康疑慮或開始任何新運動計畫前，請務必諮詢合格之醫療專業人員。';
-                document.querySelectorAll('.modal-content p')[7].innerText = '無擔保聲明： 本應用程式「現況」提供，不附帶任何明示或默示之擔保，包括但不限於商業適售性、特定用途之適用性及無侵權性之擔保。';
+                modalPs[4].innerText = '非醫療建議： 本應用程式不作為任何醫療診斷、治療或預防之依據。其無法取代專業醫療人員之診斷、治療或建議。';
+                modalPs[5].innerText = '諮詢醫療專業人員： 對於任何健康疑慮或開始任何新運動計畫前，請務必諮詢合格之醫療專業人員。';
+                modalPs[6].innerText = '無擔保聲明： 本應用程式「現況」提供，不附帶任何明示或默示之擔保，包括但不限於商業適售性、特定用途之適用性及無侵權性之擔保。';
+                
                 document.querySelectorAll('.modal-content h3')[2].innerText = '早期存取計畫條款';
-                document.querySelectorAll('.modal-content p')[8].innerText = '本早期存取計畫得隨時終止，恕不另行通知。';
-                document.querySelectorAll('.modal-content p')[9].innerText = '我們保留隨時修改或終止本計畫之任何部分之權利。';
+                modalPs[7].innerText = '本早期存取計畫得隨時終止，恕不另行通知。';
+                modalPs[8].innerText = '我們保留隨時修改或終止本計畫之任何部分之權利。';
+            
+            
             }
+            updateSignupCounter();
+
         }
         function openModal() {
             document.getElementById('disclaimerModal').style.display = "block";
@@ -454,6 +593,7 @@
                 modal.style.display = "none";
             }
         }
+        updateSignupCounter();
     </script>
 </body>
 </html>
